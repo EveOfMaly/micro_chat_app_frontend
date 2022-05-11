@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <script defer src="src/conversation.js"></script>
     <script defer src="src/conversation_api.js"></script>
     <script  defer src="src/message.js"></script>
@@ -14,18 +15,26 @@
     <title>Chat Homepage</title>
 </head>
 <body>
-
-
-
-
-
-
-
-
-    <div>
-        
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="registered-users-section"> </div>
+            <div class="users-conversations"> </div>
+        </div>
+        <div class="chat-container">
+            <div class="top-bar">
+                <div class="user-info"></div>
+            </div>
+            <div class="chat-window">
+            </div>
+            <div class="bottom-bar">
+                <form class="example" action="action_page.php">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                  </form>
+            </div>
+        </div>
     </div>
-
+        
 
     
 </body>
