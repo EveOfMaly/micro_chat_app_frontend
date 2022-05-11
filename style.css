@@ -10,7 +10,6 @@
 	width: 20vw;
 	height: 80vh;
 	position: relative;
-	z-index: 9; 
 	overflow: auto;
 	padding-bottom: 10px;
     display: flex;
