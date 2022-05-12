@@ -15,42 +15,47 @@
     <title>Chat Homepage</title>
 </head>
 <body>
-    <div class="login-wrapper">
-        <div id="container">
-            <div class="form-container">
-                <form class="new-user-form">
-                    <label>Enter your first name</label>
-                    <input type="text" id="new-user-name" placeholder="Enter your name.." >
-                    <input type="submit" id="submit" value="submit"/>
-                </form>
-            </div>
+    <div id="wrapper">
+        <div id="menu">
+            <p class="welcome">Welcome</p>
+            <p class="logout">Logout</p>
         </div>
-    </div>
+        <div class="login-wrapper">
+            <div id="container">
+                <div class="form-container">
+                    <form class="new-user-form">
+                        <label>Enter your first name</label>
+                        <input type="text" id="new-user-name" placeholder="Enter your name.." >
+                        <input type="submit" id="submit" value="submit"/>
+                    </form>
+                </div>
+            </div>
 
-    <div class="wrapper" style="display: none" >
-        <div class="sidebar">
-            <div class="registered-users-section"> <p>Registered User</p> </div>
-            <div class="users-conversations">
-                <p>User Conversations</p>   
-            </div>
-               
-        </div>
-        <div class="chat-container">
-            <div class="top-bar">
-                <div class="user-info"></div>
-            </div>
-            <div class="chat-window">
-            </div>
-            <div class="bottom-bar">
-                <form class="send-message">
-                    <input type="text" placeholder="Search.." name="search">
-                    <input type="submit" id="submit" value="Send"/>
-                </form>
+        <div class="wrapper" style="display: none" >
+            <div class="sidebar">
+                <div class="registered-users-section"> <p>Registered User</p> </div>
+                <div class="users-conversations">
+                    <p>User Conversations</p>   
+                </div> 
             </div>
         </div>
-    </div>
-        
-
+        <div id="chatbox"></div>
     
+            <div class="chat-container">
+                <div class="top-bar">
+                    <div class="user-info"></div>
+                </div>
+           
+                <div class="bottom-bar">
+                    <form class="send-message">
+                        <input type="text" placeholder="Search.." name="search">
+                        <input type="submit" id="submit" value="Send"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        
 </body>
 </html>

@@ -8,23 +8,38 @@ class User {
         this.username = name;
     }
 
+    //create when a user gets clicked
+    messageUser(e){
+        return Message.initiateMessage(this, e.target.textContent)
+    }
+
     displayUser(){
-        const loginWrapper = document.querySelector("body > div.login-wrapper")
+        const loginWrapper = document.getElementsByClassName('login-wrapper')[0]
         const wrapper =  document.getElementsByClassName('wrapper')[0]
         const newUserForm = document.getElementsByClassName('new-user-form')[0]
+        const welcome = document.querySelector("#menu > p.welcome")
+        const formContainer = document.getElementsByClassName('form-container')[0]
+
         newUserForm.style.visibility = "hidden"
-        wrapper.style.display = "block"
+  
+     
         let h2 = document.createElement('h2')
-        h2.innerText = `Welcome ${this["username"]["data"]["attributes"]["username"]}`
-        wrapper.parentNode.insertBefore(h2, wrapper) //insert after the wrapper 
+        // welcome.appendChild(h2)
+        formContainer.remove()
+        welcome.innerText = `Welcome, ${this["username"]["data"]["attributes"]["username"]}`
+        wrapper.style.display = "block"
     }
 
     renderRegisteredUsers(userInstance, users) {
         let newUsersArray = users.slice()
         
+        
         let registeredUserSection = document.getElementsByClassName('registered-users-section')[0]
         let registeredUsersContainer = document.createElement('div')
         let listElement = document.createElement('ul')
+
+        debugger
+
         registeredUserSection.appendChild(listElement)
 
         
@@ -40,6 +55,9 @@ class User {
         let li = document.createElement('li')
         li.innerText =  user['attributes']['username'] 
         listElement.appendChild(li)
+        li.addEventListener('click', (e) => {
+            this.messageUser(e)
+        })
        })
     }
 
@@ -113,18 +131,9 @@ class User {
 
 
 
-    // displayChatWidget(){
 
 
-    // }
- 
-
-
-    // sendMessage(currentUser){
-
-
-
-    // }
+    
 
 
 }
