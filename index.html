@@ -15,10 +15,25 @@
     <title>Chat Homepage</title>
 </head>
 <body>
-    <div class="wrapper">
+    <div class="login-wrapper">
+        <div id="container">
+            <div class="form-container">
+                <form class="new-user-form">
+                    <label>Enter your first name</label>
+                    <input type="text" id="new-user-name" placeholder="Enter your name.." >
+                    <input type="submit" id="submit" value="submit"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper" style="display: none" >
         <div class="sidebar">
-            <div class="registered-users-section"> </div>
-            <div class="users-conversations"> </div>
+            <div class="registered-users-section"> <p>Registered User</p> </div>
+            <div class="users-conversations">
+                <p>User Conversations</p>   
+            </div>
+               
         </div>
         <div class="chat-container">
             <div class="top-bar">
@@ -27,10 +42,10 @@
             <div class="chat-window">
             </div>
             <div class="bottom-bar">
-                <form class="example" action="action_page.php">
+                <form class="send-message">
                     <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                  </form>
+                    <input type="submit" id="submit" value="Send"/>
+                </form>
             </div>
         </div>
     </div>
