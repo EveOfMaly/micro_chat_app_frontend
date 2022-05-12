@@ -113,18 +113,18 @@ class User {
 
 
 
-    displayChatWidget(){
+    // displayChatWidget(){
 
 
-    }
+    // }
  
 
 
-    sendMessage(currentUser){
+    // sendMessage(currentUser){
 
 
 
-    }
+    // }
 
 
 }
