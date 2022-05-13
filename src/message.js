@@ -9,14 +9,14 @@ class Message{
     }
 
 
-    static initiateMessage(sender, recipient){
+    initiateMessage(sender, recipient){
         debugger
 
     }
 
 
 
-    
+
 
 
 

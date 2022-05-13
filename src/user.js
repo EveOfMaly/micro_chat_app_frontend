@@ -8,8 +8,29 @@ class User {
         this.username = name;
     }
 
+
+    usersRecipient(e){
+        let sender = this
+        let recipient = e.target.textContent
+        this.updateChat(recipient)
+
+    }
+
+    updateChat(recipient){
+    const chatbox =  document.querySelector("#chatbox")
+    chatbox.style.color = "orange" 
+    chatbox.innerHTML = `....starting conversation with ${recipient}.`
+
+    }
+
+
+
+
+
+
     //create when a user gets clicked
     messageUser(e){
+        let newMessage = new Message()
         return Message.initiateMessage(this, e.target.textContent)
     }
 
@@ -38,7 +59,7 @@ class User {
         let registeredUsersContainer = document.createElement('div')
         let listElement = document.createElement('ul')
 
-        debugger
+        
 
         registeredUserSection.appendChild(listElement)
 
@@ -56,7 +77,7 @@ class User {
         li.innerText =  user['attributes']['username'] 
         listElement.appendChild(li)
         li.addEventListener('click', (e) => {
-            this.messageUser(e)
+            this.usersRecipient(e)
         })
        })
     }
