@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     User.createUser();
+    
 })
 
 
@@ -12,28 +13,101 @@ class User {
     usersRecipient(e){
         let sender = this
         let recipient = e.target.textContent
+        this.sendlistener(sender, recipient)
         this.updateChat(recipient)
-
     }
 
     updateChat(recipient){
-    const chatbox =  document.querySelector("#chatbox")
-    chatbox.style.color = "orange" 
-    chatbox.innerHTML = `....starting conversation with ${recipient}.`
-
+        const chatbox =  document.querySelector("#chatbox")
+        chatbox.style.color = "orange" 
+        chatbox.innerHTML = `....starting conversation with ${recipient}.`
     }
 
 
 
+    sendlistener(sender, recipient){
+        const sendForm = document.getElementsByClassName("send-message")[0]
+        sendForm.addEventListener('submit', (e) =>   {
+            
+            e.preventDefault() 
+            const recipientID = Conversation.fetchRecipient(recipient)
+            
+            //get senderID  and recipient IDs
+            const senderId =  sender["username"]['data']['id']
+
+            const newMessage = e.target.children[0].value
+            //??
 
 
 
-    //create when a user gets clicked
-    messageUser(e){
-        let newMessage = new Message()
-        return Message.initiateMessage(this, e.target.textContent)
+            // const recipientObject = Conversation.returnID(recipientID)
+        
+            console.log(`sender ID: ${senderId}`)
+            console.log(`recipient ID: ${recipientID}`)
+
+            
+            
+            
+        })
+        // Conversation.newConversationPush(senderId, recipientID)
     }
 
+    
+
+            //create new conversation
+            // Conversation.newConversationPush(senderId, recipientID)
+
+
+
+            // let newConversationObjectData = new Conversation(sender, recipient)
+            // console.log(newConversationObjectData)
+            // let newMessageObjectData = new Message(sender, newConversationObjectData, newMessage)
+            // console.log(newMessageObjectData)
+            
+
+            // if (newMessage === "") {
+            //             return window.alert("You entered a blank username")
+            //         } else {
+
+            //              //instantiate conversation and create conversation
+            //            let newConversation = Conversation.newConversationPush(sender, recipient)
+            //              // 
+
+
+                         
+                    //     const userURL = "http://localhost:3000/messages";
+            
+                    //     const configurationObject = {
+                    //         method: "POST",
+                    //         headers: {
+                    //             "Content-Type": "application/json",
+                    //             Accept: "application/json"
+                    //         },
+                    //         body: JSON.stringify({
+                    //             username: newMessage
+                    //         })
+                    //     };
+                
+                    //     fetch(userURL, configurationObject)
+                    //     .then(function(response) {
+                    //         return response.json();
+                    //     })
+                    //     .then(function(message) {
+                    //         let newUser = new User(user)
+                    //         console.log(newUser);
+                    //         newUser.displayUser()
+                    //         User.fetchUsers(newUser);
+                    //         // debugger
+                    //         // let users =  newUser.fetchUsers()
+                          
+                    //     })
+                    //     .catch(function(error) {
+                    //         alert("User not added to User Controller");
+                    //         console.log(error.message);
+                    //     });
+                    // }
+          
+     
     displayUser(){
         const loginWrapper = document.getElementsByClassName('login-wrapper')[0]
         const wrapper =  document.getElementsByClassName('wrapper')[0]
@@ -102,6 +176,8 @@ class User {
         });
     }
 
+    
+
 
    
 
@@ -115,7 +191,7 @@ class User {
             if (formValue === "") {
                 return window.alert("You entered a blank username")
             } else {
-                let newUserObject = new User(formValue)
+                // let newUserObject = new User(formValue)
                 const userURL = "http://localhost:3000/users";
 
                 const configurationObject = {
@@ -126,7 +202,9 @@ class User {
                         "Content-Type": "application/json",
                         Accept: "application/json"
                     },
-                    body: JSON.stringify(newUserObject)
+                    body: JSON.stringify({
+                        username: formValue
+                    })
                 };
         
                 fetch(userURL, configurationObject)
@@ -149,14 +227,11 @@ class User {
             }
         })
     }
-
-
-
-
-
-    
-
-
 }
+
+
+
+
+
 
 
