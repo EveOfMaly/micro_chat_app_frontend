@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     User.createUser();
-    
+
 })
 
 
@@ -12,50 +12,128 @@ class User {
 
     usersRecipient(e){
         let sender = this
-        let recipient = e.target.textContent
-        this.sendlistener(sender, recipient)
-        this.updateChat(recipient)
+        let recipientName = e.target.textContent
+        let recipientId = e.target.id
+        this.updateChat(sender, recipientName, recipientId)
     }
 
-    updateChat(recipient){
+
+    sendlistener(sender, recipientName, recipientID){
+        const sendForm = document.getElementsByClassName("send-message")[0]
+
+        const senderId =  sender["username"]['data']['id']
+        const recipient_id = recipientID
+        let newMessageObject 
+        let conversationObject
+        console.log(`SenderID is ${senderId}`)
+        console.log(`RecipientID is ${recipient_id}`)
+
+        sendForm.addEventListener('submit', (e) =>   {
+            e.preventDefault() 
+             
+            // Message.postMessage(senderId, conversationID, content)
+           
+            const conversationObject =  Message.createConversation(senderId,recipient_id, e)
+            
+            // console.log(`Conversation Object Data ${conversationObject}`)
+            // //return senderinforamtion 
+            // const newMessage = e.target.children[0].value
+            // console.log(`newMessage is ${newMessage}`)
+
+            // let newMessageObject= new Message(senderId, conversationObject, newMessage)
+            // console.log(`new Message Object is ${newMessage}`)
+
+            // debugger
+            // Message.postMessage(senderId, conversationObject, newMessage )
+            // console.log(newMessageObject)
+            // return newMessageObject
+        })
+       
+    }
+
+
+    updateChat(sender, recipientName, recipientId){
         const chatbox =  document.querySelector("#chatbox")
         chatbox.style.color = "orange" 
-        chatbox.innerHTML = `....starting conversation with ${recipient}.`
+        chatbox.innerHTML = `....starting conversation with ${recipientName}.`
+        let result =  this.sendlistener(sender, recipientName, recipientId)
     }
 
 
 
-    sendlistener(sender, recipient){
-        const sendForm = document.getElementsByClassName("send-message")[0]
-        sendForm.addEventListener('submit', (e) =>   {
-            
-            e.preventDefault() 
-            const recipientID = Conversation.fetchRecipient(recipient)
-            
-            //get senderID  and recipient IDs
-            const senderId =  sender["username"]['data']['id']
-
-            const newMessage = e.target.children[0].value
-            //??
-
-
-
-            // const recipientObject = Conversation.returnID(recipientID)
         
-            console.log(`sender ID: ${senderId}`)
-            console.log(`recipient ID: ${recipientID}`)
 
             
-            
-            
-        })
-        // Conversation.newConversationPush(senderId, recipientID)
-    }
+            //create a conversation instance
 
+            // if (newMessage === "") {
+            //     return window.alert("You entered a blank username")
+            // } else {
+
+
+                 //instantiate conversation and create conversation
+            //      const newConversation = Conversation.(senderId, recipient_id)
+            //      console.log(newConversation)
+     
+                 
+            //     const userURL = "http://localhost:3000/messages";
     
+            //     const configurationObject = {
+            //         method: "POST",
+            //         headers: {
+            //             "Content-Type": "application/json",
+            //             Accept: "application/json"
+            //         },
+            //         body: JSON.stringify({
+            //             username: newMessage
+            //         })
+            //     };
+        
+            //     fetch(userURL, configurationObject)
+            //     .then(function(response) {
+            //         return response.json();
+            //     })
+            //     .then(function(message) {
+            //         let newUser = new User(user)
+            //         console.log(newUser);
+            //         newUser.displayUser()
+            //         User.fetchUsers(newUser);
+            //         // debugger
+            //         // let users =  newUser.fetchUsers()
+                  
+            //     })
+            //     .catch(function(error) {
+            //         alert("User not added to User Controller");
+            //         console.log(error.message);
+            //     });
+            // }
+            
 
-            //create new conversation
-            // Conversation.newConversationPush(senderId, recipientID)
+
+
+
+
+            //get senderID 
+            
+
+
+            
+
+            // const recipientID = Conversation.fetchRecipients(recipient)
+            // // const recipientObject = Conversation.returnID(recipientID)
+
+
+
+            // console.log(`sender data: ${sender}`)
+            // console.log(`recipient data: ${recipient}`)
+
+   
+            // const newMessage = e.target.children[0].value
+            // console.log(recipientID)
+
+            
+
+            // Conversation.(sender, recipient)
 
 
 
@@ -65,49 +143,13 @@ class User {
             // console.log(newMessageObjectData)
             
 
-            // if (newMessage === "") {
-            //             return window.alert("You entered a blank username")
-            //         } else {
-
-            //              //instantiate conversation and create conversation
-            //            let newConversation = Conversation.newConversationPush(sender, recipient)
-            //              // 
-
-
-                         
-                    //     const userURL = "http://localhost:3000/messages";
-            
-                    //     const configurationObject = {
-                    //         method: "POST",
-                    //         headers: {
-                    //             "Content-Type": "application/json",
-                    //             Accept: "application/json"
-                    //         },
-                    //         body: JSON.stringify({
-                    //             username: newMessage
-                    //         })
-                    //     };
-                
-                    //     fetch(userURL, configurationObject)
-                    //     .then(function(response) {
-                    //         return response.json();
-                    //     })
-                    //     .then(function(message) {
-                    //         let newUser = new User(user)
-                    //         console.log(newUser);
-                    //         newUser.displayUser()
-                    //         User.fetchUsers(newUser);
-                    //         // debugger
-                    //         // let users =  newUser.fetchUsers()
-                          
-                    //     })
-                    //     .catch(function(error) {
-                    //         alert("User not added to User Controller");
-                    //         console.log(error.message);
-                    //     });
-                    // }
+    
           
-     
+
+
+
+
+
     displayUser(){
         const loginWrapper = document.getElementsByClassName('login-wrapper')[0]
         const wrapper =  document.getElementsByClassName('wrapper')[0]
@@ -150,6 +192,7 @@ class User {
         let li = document.createElement('li')
         li.innerText =  user['attributes']['username'] 
         listElement.appendChild(li)
+        li.id = user.id
         li.addEventListener('click', (e) => {
             this.usersRecipient(e)
         })

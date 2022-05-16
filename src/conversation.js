@@ -12,42 +12,42 @@ class Conversation{
         return obj;
     }
 
-    static fetchRecipient(recipientData) {
+    // static fetchRecipient(recipientData) {
         
 
-        const userURL = "http://localhost:3000/users";
+    //     const userURL = "http://localhost:3000/users";
 
-        return fetch(userURL)
-        .then(function(response) {
-              return response.json();
-        })
-        .then(function(userJson) {
-            return Conversation.returnRecipient(userJson, recipientData)
-        } )  
-        .catch(function(error) {
-            alert("Cannot get index User Controllers");
-            console.log(error.message);
-        });
-    }
+    //     return fetch(userURL)
+    //     .then(function(response) {
+    //           return response.json();
+    //     })
+    //     .then(function(userJson) {
+    //         return Conversation.returnRecipient(userJson, recipientData)
+    //     } )  
+    //     .catch(function(error) {
+    //         alert("Cannot get index User Controllers");
+    //         console.log(error.message);
+    //     });
+    // }
 
  
-        static returnRecipient(array, recipient){
-            let copyOfuserJson = Object.assign({}, array)
-            let recipientObject = []
+        // static returnRecipient(array, recipient){
+        //     let copyOfuserJson = Object.assign({}, array)
+        //     let recipientObject = []
 
-             copyOfuserJson['data'].forEach( user => {
-                 if (user['attributes']['username'] === recipient) {
-                         recipientObject.push(user)
-                }
-            })   
-            console.log(recipientObject[0]['id'])
-            debugger
-            return recipientObject[0]['id']  
-        }
+            
+        //      copyOfuserJson['data'].forEach( user => {
+        //          if (user['attributes']['username'] === recipient) {
+        //                 return recipientObject.push(user)
+        //         }
+        //     })   
+        //     console.log(recipientObject[0]['id'])
+        //     return recipientObject[0]['id']  
+        // }
 
 
 
-    static newConversationPush(senderId, recipientID){
+    static newConversationPush(senderId, recipientID, newMessage){
 
         
         
@@ -64,13 +64,32 @@ class Conversation{
                 recipient_id: recipientID
             })
         };  
-        fetch(userURL, configurationObject)
+        return fetch(userURL, configurationObject)
         .then(function(response) {
-            return response.json();
+            return  response.json();
         })
         .then(function(conversation) {
-            console.log(conversation);
-            return conversation
+            console.log(`about to post to message`)
+            console.log(`${senderId}`)
+            console.log(`${conversation['data']['id']}`)
+            console.log(newMessage)
+
+            // const sendForm = document.getElementsByClassName("send-message")[0]
+            // console.log(`Conversation ${conversation}`);
+            // console.log(`Conversation Object Data ${conversationObject}`)
+            
+            
+            // const newMessage = e.target.children[0].value
+            
+            // console.log(`newMessage is ${newMessage}`)
+
+            // let newMessageObject= new Message(senderId, conversationObject, newMessage)
+            // console.log(`new Message Object is ${newMessage}`)
+
+            
+            return Message.postMessage(senderId, parseInt(`${conversation['data']['id']}`), newMessage )
+            // console.log(newMessageObject)
+            // return newMessageObject
         })
         .catch(function(error) {
             alert("Conversation is not created");
