@@ -98,6 +98,42 @@ class Conversation{
         
     }
 
+    static fetchConversation(sender_id, recipient_id) {
+
+        const userURL = "http://localhost:3000/conversations";
+        return fetch(userURL)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(userJson) {
+            return Conversation.renderConversation(userJson, sender_id, recipient_id)
+            console.log(userJson);   
+        })
+        .catch(function(error) {
+            alert("Conversation could not be rendered on screen");
+            console.log(error.message);
+        });
+    }
+
+
+    static renderConversation(array, sender_id, recipient_id){
+        const arrayData = array['data']
+        const convo = []
+        
+        for (let i = 0; i < arrayData.length; i++) {
+            debugger
+            if (array['data'][i]['attributes']['conversation_id'] == sender_id) {
+
+            }
+
+
+            // array['data'][i]
+            // console.log(arrayData)
+          }
+    }
+
+
+
     // changeto fetch and create conversation
 
     

@@ -10,6 +10,18 @@ class User {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+    
+
     usersRecipient(e){
         let sender = this
         let recipientName = e.target.textContent
@@ -29,7 +41,9 @@ class User {
         console.log(`RecipientID is ${recipient_id}`)
 
         sendForm.addEventListener('submit', (e) =>   {
+
             e.preventDefault() 
+           
              
             // Message.postMessage(senderId, conversationID, content)
            
