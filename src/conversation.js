@@ -115,10 +115,16 @@ class Conversation{
             return Conversation.renderConversation(userJson, sender_id, recipient_id)
             console.log(userJson);   
         })
+        .then(function(userJson) {
+            setTimeout(function() { Conversation.fetchConversation(sender_id, recipient_id)}, 5000);
+            console.log(userJson);   
+        })
         .catch(function(error) {
             alert("Conversation could not be rendered on screen");
             console.log(error.message);
         });
+
+        
     }
 
 
@@ -130,11 +136,12 @@ class Conversation{
         let chatbot = document.querySelector("#chatbox")
 
         
-        let newMessageContainer = document.createElement('div')
-        let listElement = document.createElement('ul')
-        chatbot.appendChild(listElement)
-
         
+        let listElement = document.createElement('ul')
+        listElement.id = "message"
+       
+
+
         for (let i = 0; i < arrayData.length; i++) {
             if (array['data'][i]['attributes']['sender_id']  === parseInt(`${sender_id}`)  &&  array['data'][i]['attributes']['recipient_id'] === parseInt(`${recipient_id}`)){
                 convo = array['data'][i]['attributes']
@@ -142,20 +149,30 @@ class Conversation{
           }
         
           for (let i = 0; i < convo.messages.length; i++) {
-
+            chatbot.appendChild(listElement)
             console.log(convo.messages[i].content)
+            let newMessageContainer = document.createElement('div')
+            
             let li = document.createElement('li')
             li.innerText =  convo.messages[i].content
             listElement.appendChild(li)
           }
+
+          
+        //   setTimeout(() => {
+        //     const elem = document.querySelector("#message")
+        //     elem.parentNode.removeChild(elem);
+        //     }, 5000);
+
+        // setTimeout(function() { Conversation.fetchConversation(sender_id, recipient_id)}, 1000);
     }
 
 
-   
-
- 
-
-
-    
-
 }
+
+
+function updateDiv(){ 
+    const chatbox =  document.querySelector("#chatbox")
+    $(`chatbox`).load(window.location.href + `#chatbox` );
+}
+

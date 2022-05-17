@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     User.createUser();
-
+    // Conversation.updateDiv()
 })
 
 
@@ -138,9 +138,13 @@ class User {
         chatbox.style.color = "orange" 
         chatbox.innerHTML = `....starting conversation with ${recipientName}.`
         let result =  this.sendlistener(sender, recipientName, recipientId)
-        fetchConversation(senderId, recipient_id)
+    
+       setTimeout(function() { Conversation.fetchConversation(senderId, recipient_id)}, 1000);
+        // Conversation.fetchConversation(senderId, recipient_id)
+        
         
     }
+
 
 
     sendlistener(sender, recipientName, recipientID){
@@ -154,14 +158,20 @@ class User {
         console.log(`RecipientID is ${recipient_id}`)
 
     
-        Conversation.fetchConversation(senderId, recipient_id)
+   
+        
+      
+        // Conversation.fetchConversation(senderId, recipient_id)
+      
+        
+        
         
         
         sendForm.addEventListener('submit', (e) =>   {
 
             e.preventDefault() 
            
-             
+            // Conversation.updateDiv()
             // Message.postMessage(senderId, conversationID, content)
            
             const conversationObject =  Message.createConversation(senderId,recipient_id, e)
@@ -291,6 +301,10 @@ class User {
     
 }
 
+
+// function updateDiv(){ 
+//     $( "#chatbox > div").load(window.location.href + "#chatbox > div" );
+// }
 
 
 
