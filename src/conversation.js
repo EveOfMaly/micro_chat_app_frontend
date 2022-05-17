@@ -74,6 +74,11 @@ class Conversation{
             console.log(`${conversation['data']['id']}`)
             console.log(newMessage)
 
+            
+           const chatbox =  document.querySelector("#chatbox")
+           chatbox.className = conversation['data']['id']
+
+
             // const sendForm = document.getElementsByClassName("send-message")[0]
             // console.log(`Conversation ${conversation}`);
             // console.log(`Conversation Object Data ${conversationObject}`)
@@ -100,6 +105,7 @@ class Conversation{
 
     static fetchConversation(sender_id, recipient_id) {
 
+    
         const userURL = "http://localhost:3000/conversations";
         return fetch(userURL)
         .then(function(response) {
@@ -117,33 +123,39 @@ class Conversation{
 
 
     static renderConversation(array, sender_id, recipient_id){
+       
+        
         const arrayData = array['data']
-        const convo = []
+        let convo 
+        let chatbot = document.querySelector("#chatbox")
+
+        
+        let newMessageContainer = document.createElement('div')
+        let listElement = document.createElement('ul')
+        chatbot.appendChild(listElement)
+
         
         for (let i = 0; i < arrayData.length; i++) {
-            debugger
-            if (array['data'][i]['attributes']['conversation_id'] == sender_id) {
-
+            if (array['data'][i]['attributes']['sender_id']  === parseInt(`${sender_id}`)  &&  array['data'][i]['attributes']['recipient_id'] === parseInt(`${recipient_id}`)){
+                convo = array['data'][i]['attributes']
             }
+          }
+        
+          for (let i = 0; i < convo.messages.length; i++) {
 
-
-            // array['data'][i]
-            // console.log(arrayData)
+            console.log(convo.messages[i].content)
+            let li = document.createElement('li')
+            li.innerText =  convo.messages[i].content
+            listElement.appendChild(li)
           }
     }
 
 
+   
 
-    // changeto fetch and create conversation
+ 
+
 
     
-
-
-    // console.log (Conversation.makeConversation(senderId, user.id))
-                    // debugger
-                    // return Conversation.makeConversation(senderId, user.id)
-
-
-
 
 }

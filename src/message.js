@@ -91,6 +91,9 @@ class Message{
             })
             .then(function(message) {
                 console.log(message);
+
+                //refresh chatscreen
+                
                 return message
          
                 // newUser.displayUser()
