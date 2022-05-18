@@ -12,45 +12,33 @@ class Conversation{
         return obj;
     }
 
-    // static fetchRecipient(recipientData) {
-        
+    static fetchConversation(sender_id, recipient_id) {
 
-    //     const userURL = "http://localhost:3000/users";
+    
+        const userURL = "http://localhost:3000/conversations";
+        return fetch(userURL)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(userJson) {
+            const messageList =  document.querySelector("#message-list")
 
-    //     return fetch(userURL)
-    //     .then(function(response) {
-    //           return response.json();
-    //     })
-    //     .then(function(userJson) {
-    //         return Conversation.returnRecipient(userJson, recipientData)
-    //     } )  
-    //     .catch(function(error) {
-    //         alert("Cannot get index User Controllers");
-    //         console.log(error.message);
-    //     });
-    // }
-
- 
-        // static returnRecipient(array, recipient){
-        //     let copyOfuserJson = Object.assign({}, array)
-        //     let recipientObject = []
-
+            messageList.innerHTML = ""
             
-        //      copyOfuserJson['data'].forEach( user => {
-        //          if (user['attributes']['username'] === recipient) {
-        //                 return recipientObject.push(user)
-        //         }
-        //     })   
-        //     console.log(recipientObject[0]['id'])
-        //     return recipientObject[0]['id']  
-        // }
+            return Conversation.renderConversation(userJson, sender_id, recipient_id)
+            console.log(userJson);   
+        })
+        .catch(function(error) {
+            // alert("Conversation could not be rendered on screen");
+            console.log(error.message);
+        });
 
-
+        
+    }
 
     static newConversationPush(senderId, recipientID, newMessage){
 
-        
-        
+    
         const userURL = "http://localhost:3000/conversations";
         
         const configurationObject = {
@@ -73,7 +61,7 @@ class Conversation{
             console.log(`${senderId}`)
             console.log(`${conversation['data']['id']}`)
             console.log(newMessage)
-
+            
             
            const chatbox =  document.querySelector("#chatbox")
            chatbox.className = conversation['data']['id']
@@ -103,76 +91,93 @@ class Conversation{
         
     }
 
-    static fetchConversation(sender_id, recipient_id) {
-
-    
-        const userURL = "http://localhost:3000/conversations";
-        return fetch(userURL)
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(userJson) {
-            return Conversation.renderConversation(userJson, sender_id, recipient_id)
-            console.log(userJson);   
-        })
-        .then(function(userJson) {
-            setTimeout(function() { Conversation.fetchConversation(sender_id, recipient_id)}, 5000);
-            console.log(userJson);   
-        })
-        .catch(function(error) {
-            alert("Conversation could not be rendered on screen");
-            console.log(error.message);
-        });
-
-        
-    }
-
 
     static renderConversation(array, sender_id, recipient_id){
-       
+        
         
         const arrayData = array['data']
         let convo 
-        let chatbot = document.querySelector("#chatbox")
-
-        
-        
-        let listElement = document.createElement('ul')
-        listElement.id = "message"
        
-
+        
 
         for (let i = 0; i < arrayData.length; i++) {
             if (array['data'][i]['attributes']['sender_id']  === parseInt(`${sender_id}`)  &&  array['data'][i]['attributes']['recipient_id'] === parseInt(`${recipient_id}`)){
                 convo = array['data'][i]['attributes']
             }
           }
+
+          let messages = convo['messages']
+
+
+          
+
+    //     const length = messages.length
         
-          for (let i = 0; i < convo.messages.length; i++) {
-            chatbot.appendChild(listElement)
-            console.log(convo.messages[i].content)
-            let newMessageContainer = document.createElement('div')
+    //     const mostRecent = messages.slice(length - 3)
+    //     const list = document.querySelector("#message-list")
+
+    //     let newList = ""
+        
+
+    //     mostRecent.forEach(message => {
             
+    //     if (!document.querySelector(`li[data-id='${message.id}']`)) {
+    //   newList += Conversation.makeLi(message)}
+    //   debugger
+    // })
+    // if (newList != "") {
+    // list.innerHTML += newList
+    // }
+
+
+
+   
+        let chatbot = document.querySelector("#chatbox")
+
+        
+        
+        let listElement = document.querySelector("#message-list")
+
+        // let newList = ""
+
+
+          for (let i = 0; i < messages.length; i++) {
+
+              
+            console.log(convo.messages[i].content)            
             let li = document.createElement('li')
             li.innerText =  convo.messages[i].content
             listElement.appendChild(li)
+            
           }
+  
 
-          
-        //   setTimeout(() => {
-        //     const elem = document.querySelector("#message")
-        //     elem.parentNode.removeChild(elem);
-        //     }, 5000);
 
-        // setTimeout(function() { Conversation.fetchConversation(sender_id, recipient_id)}, 1000);
+
+            
+
+  
     }
 
 
+
+    static grabMessages(sender_id, recipient_id){
+        Conversation.fetchConversation(sender_id, recipient_id)
+    }
+
+    // static makeLi(message){
+    //     let li = document.createElement('li')
+    //     li.innerHTML = <li data-id='${message.id}'>${message.message}</li>
+    //     debugger
+    //     return li
+
+    // }
+
 }
 
 
-function updateDiv(){ 
-    const chatbox =  document.querySelector("#chatbox")
-    $(`chatbox`).load(window.location.href + `#chatbox` );
-}
+// function updateDiv(){ 
+//     const chatbox =  document.querySelector("#chatbox")
+//     $(`chatbox`).load(window.location.href + `#chatbox` );
+// }
 

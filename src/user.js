@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     User.createUser();
+
+    
+
     // Conversation.updateDiv()
 })
 
@@ -81,7 +84,7 @@ class User {
             return response.json();
         })
         .then(function(userJson) {
-            currentUser.renderRegisteredUsers(currentUser, userJson["data"]) 
+            return currentUser.renderRegisteredUsers(currentUser, userJson["data"]) 
             console.log(userJson);   
         })
         .catch(function(error) {
@@ -92,8 +95,6 @@ class User {
 
     renderRegisteredUsers(userInstance, users) {
         let newUsersArray = users.slice()
-        
-        
         let registeredUserSection = document.getElementsByClassName('registered-users-section')[0]
         let registeredUsersContainer = document.createElement('div')
         let listElement = document.createElement('ul')
@@ -128,18 +129,26 @@ class User {
         let recipientId = e.target.id
         this.updateChat(sender, recipientName, recipientId)
         
+        
+        
     }
 
     updateChat(sender, recipientName, recipientId){
         const senderId =  sender["username"]['data']['id']
         const recipient_id = recipientId
 
+        
+
         const chatbox =  document.querySelector("#chatbox")
         chatbox.style.color = "orange" 
-        chatbox.innerHTML = `....starting conversation with ${recipientName}.`
+        // chatbox.innerHTML = `....starting conversation with ${recipientName}.`
         let result =  this.sendlistener(sender, recipientName, recipientId)
+
+        const refreshInterval = setInterval(function() {
+            Conversation.grabMessages(senderId, recipient_id)
+        }, 1050)
     
-       setTimeout(function() { Conversation.fetchConversation(senderId, recipient_id)}, 1000);
+    //    setTimeout(function() { Conversation.fetchConversation(senderId, recipient_id)}, 1000);
         // Conversation.fetchConversation(senderId, recipient_id)
         
         
@@ -158,14 +167,7 @@ class User {
         console.log(`RecipientID is ${recipient_id}`)
 
     
-   
-        
-      
-        // Conversation.fetchConversation(senderId, recipient_id)
-      
-        
-        
-        
+
         
         sendForm.addEventListener('submit', (e) =>   {
 
