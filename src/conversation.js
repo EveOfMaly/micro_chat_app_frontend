@@ -65,20 +65,6 @@ class Conversation{
             
            const chatbox =  document.querySelector("#chatbox")
            chatbox.className = conversation['data']['id']
-
-
-            // const sendForm = document.getElementsByClassName("send-message")[0]
-            // console.log(`Conversation ${conversation}`);
-            // console.log(`Conversation Object Data ${conversationObject}`)
-            
-            
-            // const newMessage = e.target.children[0].value
-            
-            // console.log(`newMessage is ${newMessage}`)
-
-            // let newMessageObject= new Message(senderId, conversationObject, newMessage)
-            // console.log(`new Message Object is ${newMessage}`)
-
             
             return Message.postMessage(senderId, parseInt(`${conversation['data']['id']}`), newMessage )
             // console.log(newMessageObject)
@@ -101,7 +87,9 @@ class Conversation{
         
 
         for (let i = 0; i < arrayData.length; i++) {
-            if (array['data'][i]['attributes']['sender_id']  === parseInt(`${sender_id}`)  &&  array['data'][i]['attributes']['recipient_id'] === parseInt(`${recipient_id}`)){
+            if (array['data'][i]['attributes']['sender_id']  === parseInt(`${sender_id}`)  &&  array['data'][i]['attributes']['recipient_id'] === parseInt(`${recipient_id}`)) {
+                convo = array['data'][i]['attributes']
+            } else if (array['data'][i]['attributes']['sender_id']  === parseInt(`${recipient_id}`)  &&  array['data'][i]['attributes']['recipient_id'] === parseInt(`${sender_id}`)) {
                 convo = array['data'][i]['attributes']
             }
           }
