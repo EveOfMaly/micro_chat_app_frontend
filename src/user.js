@@ -130,6 +130,9 @@ class User {
     updateChat(sender, recipientName, recipientId){
         const senderId =  sender["username"]['data']['id']
         const recipient_id = recipientId
+        const messageList =  document.querySelector("#message-list")
+        messageList.innerHTML = ""
+        Conversation.grabMessages(senderId, recipient_id)
 
         
 
@@ -141,7 +144,7 @@ class User {
         //on click of a user continually update the chatbox with updated converstions
         const refreshInterval = setInterval(function() {
             Conversation.grabMessages(senderId, recipient_id)
-        }, 3000)
+        }, 2500)
         
     }
 
