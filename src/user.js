@@ -1,3 +1,5 @@
+
+//Start when  DOM Content loaded successfully
 document.addEventListener("DOMContentLoaded", () => {
     User.createUser();
 })
@@ -9,25 +11,27 @@ class User {
     }
 
     static createUser(){
+        //form for user to enter their username
         const newUserForm = document.getElementsByClassName('new-user-form')[0]
         
+        //listen to see if username was submitted 
         newUserForm.addEventListener('submit', (e) =>   {
 
             e.preventDefault() //ensure the button doesn't redirect on click. 
             const formValue =  e.target.children[1].value; //value of the input which is the username
 
+
+            //Either alert if username is blank post or call User Controller method Create(POST)
+        
             if (formValue === "") {
                 return window.alert("You entered a blank username. Please enter a valid username.")
             } else {
-                // let newUserObject = new User(formValue)
                 const userURL = "http://localhost:3000/users";
 
                 //post to the User Controller Create method 
                 const configurationObject = {
                     method: "POST",
                     headers: {
-                        // #type of content type we are sending 
-                        // type of content type we accept
                         "Content-Type": "application/json",
                         Accept: "application/json"
                     },
@@ -41,10 +45,10 @@ class User {
                     return response.json();
                 })
                 .then(function(user) {
-                    let newUser = new User(user)
+                    let newUser = new User(user) //initialize a user object
                     console.log(newUser);
-                    newUser.displayUser()
-                    User.fetchUsers(newUser);
+                    newUser.displayUser()  //call function to display user information
+                    User.fetchUsers(newUser); //call function to get available users from the database (GET)
                 })
                 .catch(function(error) {
                     alert("User not added to User Controller");
@@ -54,7 +58,8 @@ class User {
         })
     }
 
-    //
+    //hide the newUserForm and remove the container 
+    //add welcome message and display the welcome message
     displayUser(){
         const loginWrapper = document.getElementsByClassName('login-wrapper')[0]
         const wrapper =  document.getElementsByClassName('wrapper')[0]
@@ -69,9 +74,10 @@ class User {
         wrapper.style.display = "block"
     }
 
+    //GET from User Controllers Index function to see all the users from the database
     static fetchUsers(userInstance) {
 
-        let currentUser = userInstance 
+        // let currentUser = userInstance 
 
         const userURL = "http://localhost:3000/users";
         return fetch(userURL)
@@ -79,7 +85,7 @@ class User {
             return response.json();
         })
         .then(function(userJson) {
-            return currentUser.renderRegisteredUsers(currentUser, userJson["data"]) 
+            return userInstance.renderRegisteredUsers(userInstance, userJson["data"]) 
             console.log(userJson);   
         })
         .catch(function(error) {
@@ -89,7 +95,7 @@ class User {
     }
 
     renderRegisteredUsers(userInstance, users) {
-        let newUsersArray = users.slice()
+        let newUsersArray = users.slice() //duplicating array of users
         let registeredUserSection = document.getElementsByClassName('registered-users-section')[0]
         let registeredUsersContainer = document.createElement('div')
         let listElement = document.createElement('ul')
@@ -99,7 +105,7 @@ class User {
 
         
     
-        //list of all users that don't include user instance
+        //list of all users that don't include current user instance
         let ArrayOfRegisteredUser = newUsersArray.filter(user => {
             return user["attributes"]['username'] != userInstance['username']['data']['attributes']['username']
         })
@@ -110,7 +116,7 @@ class User {
         let li = document.createElement('li')
         li.innerText =  user['attributes']['username'] 
         listElement.appendChild(li)
-        li.id = user.id
+        li.id = user.id //listing ID so can use later to under who current user chose
         li.addEventListener('click', (e) => {
             this.usersRecipient(e)
         })
@@ -122,9 +128,6 @@ class User {
         let recipientName = e.target.textContent
         let recipientId = e.target.id
         this.updateChat(sender, recipientName, recipientId)
-        
-        
-        
     }
 
     updateChat(sender, recipientName, recipientId){
@@ -132,16 +135,18 @@ class User {
         const recipient_id = recipientId
         const messageList =  document.querySelector("#message-list")
         messageList.innerHTML = ""
+
+        //call grab messages which calls Conversation Controller GET Index to see available conversations for specific Conversation ID
+
         Conversation.grabMessages(senderId, recipient_id)
 
-        
-
+    
         const chatbox =  document.querySelector("#chatbox")
         chatbox.style.color = "orange" 
-        // chatbox.innerHTML = `....starting conversation with ${recipientName}.`
         let result =  this.sendlistener(sender, recipientName, recipientId)
 
         //on click of a user continually update the chatbox with updated converstions
+        //Note to self < 1000 breaks the app.
         const refreshInterval = setInterval(function() {
             Conversation.grabMessages(senderId, recipient_id)
         }, 2500)
@@ -167,128 +172,16 @@ class User {
 
             e.preventDefault() 
            
-    
-            //create conversation in database
+            //create a Conversation Object in database
             const conversationObject =  Message.createConversation(senderId,recipient_id, e)
-            
-    
         })
        
     }
-
-
- 
-
-
-
-        
-
-            
-            //create a conversation instance
-
-            // if (newMessage === "") {
-            //     return window.alert("You entered a blank username")
-            // } else {
-
-
-                 //instantiate conversation and create conversation
-            //      const newConversation = Conversation.(senderId, recipient_id)
-            //      console.log(newConversation)
-     
-                 
-            //     const userURL = "http://localhost:3000/messages";
-    
-            //     const configurationObject = {
-            //         method: "POST",
-            //         headers: {
-            //             "Content-Type": "application/json",
-            //             Accept: "application/json"
-            //         },
-            //         body: JSON.stringify({
-            //             username: newMessage
-            //         })
-            //     };
-        
-            //     fetch(userURL, configurationObject)
-            //     .then(function(response) {
-            //         return response.json();
-            //     })
-            //     .then(function(message) {
-            //         let newUser = new User(user)
-            //         console.log(newUser);
-            //         newUser.displayUser()
-            //         User.fetchUsers(newUser);
-            //         // debugger
-            //         // let users =  newUser.fetchUsers()
-                  
-            //     })
-            //     .catch(function(error) {
-            //         alert("User not added to User Controller");
-            //         console.log(error.message);
-            //     });
-            // }
-            
-
-
-
-
-
-            //get senderID 
-            
-
-
-            
-
-            // const recipientID = Conversation.fetchRecipients(recipient)
-            // // const recipientObject = Conversation.returnID(recipientID)
-
-
-
-            // console.log(`sender data: ${sender}`)
-            // console.log(`recipient data: ${recipient}`)
-
-   
-            // const newMessage = e.target.children[0].value
-            // console.log(recipientID)
-
-            
-
-            // Conversation.(sender, recipient)
-
-
-
-            // let newConversationObjectData = new Conversation(sender, recipient)
-            // console.log(newConversationObjectData)
-            // let newMessageObjectData = new Message(sender, newConversationObjectData, newMessage)
-            // console.log(newMessageObjectData)
-            
-
-    
-          
-
-
-
-
-
-    
-
-    
-
-
-    
-
-    
-
-
-   
-
     
 }
 
 
-// function updateDiv(){ 
-//     $( "#chatbox > div").load(window.location.href + "#chatbox > div" );
-// }
+
 
 
 
