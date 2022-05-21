@@ -12,6 +12,23 @@ class Conversation{
         return obj;
     }
 
+    static createConversation(senderIdString,recipientIdString, e){
+
+        //convert the sender and recipient string data from event Listener input to Integer
+        const senderID = parseInt(senderIdString);
+        const recipientID = parseInt(recipientIdString);
+    
+        const newMessage = e.target.children[0].value
+        if (newMessage === "") {
+            return window.alert("You entered a blank username")
+        } else {
+            //Post to Conversation Create Controller
+            const newConversation =   Conversation.newConversationPush(senderID, recipientID,newMessage )
+            console.log(`Conversation Data ${newConversation}`)
+            return newConversation
+        }
+    }
+
     static fetchConversation(sender_id, recipient_id) {
 
     
@@ -36,6 +53,7 @@ class Conversation{
         
     }
 
+    //Post to Create Method in Conversation Controller 
     static newConversationPush(senderId, recipientID, newMessage){
 
     
@@ -66,6 +84,8 @@ class Conversation{
            const chatbox =  document.querySelector("#chatbox")
            chatbox.className = conversation['data']['id']
             
+           //POST Action in Message Controller in Create Method
+           //New Message Instance Created in database
             return Message.postMessage(senderId, parseInt(`${conversation['data']['id']}`), newMessage )
             // console.log(newMessageObject)
             // return newMessageObject

@@ -173,7 +173,7 @@ class User {
             e.preventDefault() 
            
             //create a Conversation Object in database
-            const conversationObject =  Message.createConversation(senderId,recipient_id, e)
+            const conversationObject =  Conversation.createConversation(senderId,recipient_id, e)
         })
        
     }

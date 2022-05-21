@@ -6,23 +6,6 @@ class Message{
         this.content = content;
     }
 
-
-    static createConversation(senderIdString,recipientIdString, e){
-
-        const senderID = parseInt(senderIdString);
-        const recipientID = parseInt(recipientIdString);
-    
-        const newMessage = e.target.children[0].value
-        if (newMessage === "") {
-            return window.alert("You entered a blank username")
-        } else {
-
-            const newConversation =   Conversation.newConversationPush(senderID, recipientID,newMessage )
-            console.log(`Conversation Data ${newConversation}`)
-            return newConversation
-        }
-    }
-
     static postMessage(senderId, conversationID, content) {
        
         const messageURL = "http://localhost:3000/messages";
