@@ -6,6 +6,8 @@ class Message{
         this.content = content;
     }
 
+          //POST Action in Message Controller in Create Method
+           //New Message Instance Created in database
     static postMessage(senderId, conversationID, content) {
        
         const messageURL = "http://localhost:3000/messages";
