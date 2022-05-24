@@ -94,6 +94,9 @@ class User {
         });
     }
 
+   
+
+
     renderRegisteredUsers(userInstance, users) {
         let newUsersArray = users.slice() //duplicating array of users
         let registeredUserSection = document.getElementsByClassName('registered-users-section')[0]

@@ -40,6 +40,7 @@ class Conversation{
         .then(function(userJson) {
             const messageList =  document.querySelector("#message-list")
 
+            //Ensure that the mesage li items are refreshed 
             messageList.innerHTML = ""
             
             return Conversation.renderConversation(userJson, sender_id, recipient_id)
@@ -54,6 +55,7 @@ class Conversation{
     }
 
     //Post to Create Method in Conversation Controller 
+    //Call Post Method in Message Controller to tie Conversation and Message together.
     static newConversationPush(senderId, recipientID, newMessage){
 
     
@@ -105,7 +107,10 @@ class Conversation{
         let convo 
        
         
-
+        //Related to fetchingConversation. Iterete through array of all conversations.
+        //if within array can find sender_id and recipient_id then pass data into convo which will hold messages. 
+        //Also look for sender_id and recipient_id interchanged so if UserA was sender or the recipient of conversation.
+        //New Message Instance Created in database
         for (let i = 0; i < arrayData.length; i++) {
             if (array['data'][i]['attributes']['sender_id']  === parseInt(`${sender_id}`)  &&  array['data'][i]['attributes']['recipient_id'] === parseInt(`${recipient_id}`)) {
                 convo = array['data'][i]['attributes']
@@ -114,28 +119,14 @@ class Conversation{
             }
           }
 
+          debugger 
+
           let messages = convo['messages']
-
-
           
 
-    //     const length = messages.length
-        
-    //     const mostRecent = messages.slice(length - 3)
-    //     const list = document.querySelector("#message-list")
+          //fetch user data 
 
-    //     let newList = ""
-        
 
-    //     mostRecent.forEach(message => {
-            
-    //     if (!document.querySelector(`li[data-id='${message.id}']`)) {
-    //   newList += Conversation.makeLi(message)}
-    //   debugger
-    // })
-    // if (newList != "") {
-    // list.innerHTML += newList
-    // }
 
 
 
@@ -146,12 +137,10 @@ class Conversation{
         
         let listElement = document.querySelector("#message-list")
 
-        // let newList = ""
-
 
           for (let i = 0; i < messages.length; i++) {
 
-              
+            debugger
             console.log(convo.messages[i].content)            
             let li = document.createElement('li')
             li.innerText =  convo.messages[i].content
@@ -159,33 +148,16 @@ class Conversation{
             
           }
   
-
-
-
-            
-
   
     }
 
 
+    //function to fetchconversation
 
     static grabMessages(sender_id, recipient_id){
         Conversation.fetchConversation(sender_id, recipient_id)
     }
-
-    // static makeLi(message){
-    //     let li = document.createElement('li')
-    //     li.innerHTML = <li data-id='${message.id}'>${message.message}</li>
-    //     debugger
-    //     return li
-
-    // }
-
 }
 
 
-// function updateDiv(){ 
-//     const chatbox =  document.querySelector("#chatbox")
-//     $(`chatbox`).load(window.location.href + `#chatbox` );
-// }
 
