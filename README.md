@@ -14,18 +14,10 @@ For production use http:localhost/3000
 https://github.com/EveOfMaly/reddit-sinatra-clone/blob/main/LICENSE
 
 # Current Features
-- App Auth & tGoogle OAuth for users for user sign-in and sign-out
-- User can create a contact
-- User cam see a list of available contacts
-- User can create a page for enable tracking
-- Visitors are created when they visit a page 
-- Identity Management allows a link between a Contact and Visitor data to be made.
-- Users can delete their account
+
 
 # Future Features
-- Identity Management 1.1 (Grouping activities) 
-- Improved UX on responsive page.
-- Improved Validations across Models
+
 
 # How to Contribute
 Yay, you're interested in helping work on this please add issues here: https://github.com/johnkyeremeh/mini-crm/issues
