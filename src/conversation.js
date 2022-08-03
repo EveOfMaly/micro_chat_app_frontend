@@ -1,6 +1,8 @@
 
 // https://share.vidyard.com/watch/xLWD1XRtfmjgZiivQc1ZXT?
 
+import { CONVERSATION_URL } from "..";
+
 class Conversation{
     constructor(sender_id, recipient_id) {
         this.sender_id = sender_id ;
@@ -32,7 +34,7 @@ class Conversation{
     static fetchConversation(sender_id, recipient_id) {
 
     
-        const userURL = "http://localhost:3000/conversations";
+        const userURL = CONVERSATION_URL;
         return fetch(userURL)
         .then(function(response) {
             return response.json();
@@ -59,7 +61,7 @@ class Conversation{
     static newConversationPush(senderId, recipientID, newMessage){
 
     
-        const userURL = "http://localhost:3000/conversations";
+        const userURL = CONVERSATION_URL;
         
         const configurationObject = {
             method: "POST",
