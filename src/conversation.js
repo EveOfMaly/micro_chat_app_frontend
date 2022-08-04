@@ -121,7 +121,7 @@ class Conversation{
             }
           }
 
-          debugger 
+           
 
           let messages = convo['messages']
           
@@ -142,7 +142,7 @@ class Conversation{
 
           for (let i = 0; i < messages.length; i++) {
 
-            debugger
+            
             console.log(convo.messages[i].content)            
             let li = document.createElement('li')
             li.innerText =  convo.messages[i].content
