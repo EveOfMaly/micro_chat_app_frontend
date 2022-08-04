@@ -1,4 +1,3 @@
-import { MESSAGES_URL } from "..";
 
 class Message{
     constructor(userId, conversationId, content) {
@@ -7,11 +6,14 @@ class Message{
         this.content = content;
     }
 
+
+
+
           //POST Action in Message Controller in Create Method
            //New Message Instance Created in database
     static postMessage(senderId, conversationID, content) {
        
-        const messageURL = MESSAGES_URL;
+        const messageURL = `${BASE_URL}/messages`;
 
        
             const configurationObject = {

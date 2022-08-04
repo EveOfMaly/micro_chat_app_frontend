@@ -1,4 +1,4 @@
-import { USERS_URL } from "..";
+
 
 //Start when  DOM Content loaded successfully
 document.addEventListener("DOMContentLoaded", () => {
@@ -27,7 +27,7 @@ class User {
             if (formValue === "") {
                 return window.alert("You entered a blank username. Please enter a valid username.")
             } else {
-                const userURL = USERS_URL;
+                const userURL = `${BASE_URL}/users`;
 
                 //post to the User Controller Create method 
                 const configurationObject = {
@@ -80,7 +80,7 @@ class User {
 
         // let currentUser = userInstance 
 
-        const userURL = USERS_URL;
+        const userURL = `${BASE_URL}/users`;
         return fetch(userURL)
         .then(function(response) {
             return response.json();

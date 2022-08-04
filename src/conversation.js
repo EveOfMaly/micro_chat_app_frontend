@@ -1,9 +1,9 @@
 
 // https://share.vidyard.com/watch/xLWD1XRtfmjgZiivQc1ZXT?
-
-import { CONVERSATION_URL } from "..";
+const BASE_URL = 'https://whispering-gorge-15081.herokuapp.com';
 
 class Conversation{
+
     constructor(sender_id, recipient_id) {
         this.sender_id = sender_id ;
         this.recipient_id = recipient_id;
@@ -34,8 +34,8 @@ class Conversation{
     static fetchConversation(sender_id, recipient_id) {
 
     
-        const userURL = CONVERSATION_URL;
-        return fetch(userURL)
+        const conversationsURL = `${BASE_URL}/conversations`;
+        return fetch(conversationsURL)
         .then(function(response) {
             return response.json();
         })
@@ -61,7 +61,7 @@ class Conversation{
     static newConversationPush(senderId, recipientID, newMessage){
 
     
-        const userURL = CONVERSATION_URL;
+        const conversationsURL = `${BASE_URL}/conversations`;
         
         const configurationObject = {
             method: "POST",
@@ -74,7 +74,7 @@ class Conversation{
                 recipient_id: recipientID
             })
         };  
-        return fetch(userURL, configurationObject)
+        return fetch(conversationsURL, configurationObject)
         .then(function(response) {
             return  response.json();
         })
